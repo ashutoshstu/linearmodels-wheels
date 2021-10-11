@@ -22,6 +22,19 @@ jobs:
         exclude:
           - os: macos-latest # macos-10.15
             PLAT: i686
+        include:
+          - python-version: 3.7
+            os: ubuntu-latest
+            platform: aarch64
+            PLAT: aarch64
+          - python-version: 3.8
+            os: ubuntu-latest
+            platform: aarch64
+            PLAT: aarch64
+          - python-version: 3.9
+            os: ubuntu-latest
+            platform: aarch64
+            PLAT: aarch64
     env:
       REPO_DIR: linearmodels
       PKG_NAME: linearmodels
@@ -49,6 +62,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+    - uses: docker/setup-qemu-action@v1
+      if: ${{ matrix.platform == 'aarch64' }}
+      name: Set up QEMU
     - name: Pin Numpy, Scipy and Pandas version
       run: |
         if [[ $TRAVIS_PYTHON_VERSION == "3.7" ]]; then
@@ -88,8 +104,15 @@ jobs:
           echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV;
         fi
         echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP $SP_BUILD_DEP $PANDAS_DEP cython statsmodels xarray pyhdfe)" >> $GITHUB_ENV;
+        if [ "aarch64" == "${{ matrix.platform }}" ]; then
+          echo "MB_ML_VER=2014" >> $GITHUB_ENV
+        fi
         echo "TEST_DEPENDS=$(echo $NP_TEST_DEP $SP_TEST_DEP $PANDAS_DEP nose pytest pytest-xdist statsmodels patsy property_cached mypy_extensions pytest jupyter jupyter_client nbformat nbconvert==5.6.1 pytest-xdist pyhdfe)" >> $GITHUB_ENV;
-        echo "DOCKER_TEST_IMAGE=$(echo multibuild/xenial_${{ matrix.PLAT}})" >> $GITHUB_ENV;
+        if [ "aarch64" == "${{ matrix.platform }}" ]; then
+          echo "DOCKER_TEST_IMAGE=$(echo multibuild/xenial_arm64v8)" >> $GITHUB_ENV
+        else
+          echo "DOCKER_TEST_IMAGE=$(echo multibuild/xenial_${{ matrix.PLAT}})" >> $GITHUB_ENV;
+        fi
     - name: Print some Environment variable
       run: |
         echo "ANACONDA_ORG: ${ANACONDA_ORG}"
