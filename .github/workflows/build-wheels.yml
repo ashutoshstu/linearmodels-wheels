@@ -23,15 +23,15 @@ jobs:
           - os: macos-latest # macos-10.15
             PLAT: i686
         include:
-          - python-version: cp37
+          - python-version: cp37-cp37m
             os: ubuntu-latest
             platform: aarch64
             PLAT: aarch64
-          - python-version: cp38
+          - python-version: cp38-cp38
             os: ubuntu-latest
             platform: aarch64
             PLAT: aarch64
-          - python-version: cp39
+          - python-version: cp39-cp39
             os: ubuntu-latest
             platform: aarch64
             PLAT: aarch64
