@@ -82,8 +82,6 @@ jobs:
         echo "PANDAS_DEP=$(echo pandas==1.1.5)" >> $GITHUB_ENV;
     - name: Setup Environment variables
       run: |
-        echo "Python version: ${{TRAVIS_PYTHON_VERSION}}"
-        echo "MB Python version: ${{MB_PYTHON_VERSION}}"
         echo "Event type: ${{ github.event_name }}"
         if [[ ${TESTPYPI_UPLOAD} == "true" ]]; then
           echo "Upload to Test PyPI"
