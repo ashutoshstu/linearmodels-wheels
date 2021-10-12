@@ -22,8 +22,8 @@ function install_run {
     # Override multibuild test running command, to preinstall packages
     # that have to be installed before TEST_DEPENDS.
     set -ex
-    if [ `uname -m` == `aarch64` ]; then
-    yum -y install wget
+    if [ `uname -m` == 'aarch64' ]; then
+    #apt-get -y install wget
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
     MINICONDA_PATH=/home/travis/miniconda
     chmod +x miniconda.sh && ./miniconda.sh -b -p $MINICONDA_PATH
