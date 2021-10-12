@@ -23,15 +23,15 @@ jobs:
           - os: macos-latest # macos-10.15
             PLAT: i686
         include:
-          - python-version: cp37-cp37m
+          - python-version: 3.7
             os: ubuntu-latest
             platform: aarch64
             PLAT: aarch64
-          - python-version: cp38-cp38
+          - python-version: 3.8
             os: ubuntu-latest
             platform: aarch64
             PLAT: aarch64
-          - python-version: cp39-cp39
+          - python-version: 3.9
             os: ubuntu-latest
             platform: aarch64
             PLAT: aarch64
@@ -149,12 +149,12 @@ jobs:
         build_wheel $REPO_DIR ${{ matrix.PLAT }}
         echo "------ INSTALL RUN --------"
         install_run ${{ matrix.PLAT }}
-    - name: Upload wheels
-      if: always()
-      run: source twine-upload.sh
-      env:
-        TESTPYPI_USERNAME: ${{ secrets.TESTPYPI_USERNAME }}
-        TESTPYPI_PASSWORD: ${{ secrets.TESTPYPI_PASSWORD }}
-        PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-        PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+    #- name: Upload wheels
+    #  if: always()
+    #  run: source twine-upload.sh
+    #  env:
+    #    TESTPYPI_USERNAME: ${{ secrets.TESTPYPI_USERNAME }}
+    #    TESTPYPI_PASSWORD: ${{ secrets.TESTPYPI_PASSWORD }}
+    #    PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+    #    PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 
