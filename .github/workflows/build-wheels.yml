@@ -106,6 +106,7 @@ jobs:
         fi
         
         if [ "aarch64" == "${{ matrix.platform }}" ]; then
+          echo "NP_BUILD_DEP=$(echo numpy==1.19.4)" >> $GITHUB_ENV
           echo "MB_ML_VER=2014" >> $GITHUB_ENV
           echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP $SP_BUILD_DEP $PANDAS_DEP cython xarray pyhdfe)" >> $GITHUB_ENV
         else
