@@ -60,6 +60,7 @@ jobs:
         fetch-depth: 0
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
+      if: ${{ matrix.platform != 'aarch64' }}
       with:
         python-version: ${{ matrix.python-version }}
     - uses: docker/setup-qemu-action@v1
