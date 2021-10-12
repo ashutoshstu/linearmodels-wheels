@@ -104,9 +104,12 @@ jobs:
         else
           echo "TRAVIS_OS_NAME=${{ matrix.os }}" >> $GITHUB_ENV;
         fi
-        echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP $SP_BUILD_DEP $PANDAS_DEP cython statsmodels xarray pyhdfe)" >> $GITHUB_ENV;
+        
         if [ "aarch64" == "${{ matrix.platform }}" ]; then
           echo "MB_ML_VER=2014" >> $GITHUB_ENV
+          echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP $SP_BUILD_DEP $PANDAS_DEP cython xarray pyhdfe)" >> $GITHUB_ENV
+        else
+          echo "BUILD_DEPENDS=$(echo $NP_BUILD_DEP $SP_BUILD_DEP $PANDAS_DEP cython statsmodels xarray pyhdfe)" >> $GITHUB_ENV;
         fi
         echo "TEST_DEPENDS=$(echo $NP_TEST_DEP $SP_TEST_DEP $PANDAS_DEP nose pytest pytest-xdist statsmodels patsy property_cached mypy_extensions pytest jupyter jupyter_client nbformat nbconvert==5.6.1 pytest-xdist pyhdfe)" >> $GITHUB_ENV;
         if [ "aarch64" == "${{ matrix.platform }}" ]; then
