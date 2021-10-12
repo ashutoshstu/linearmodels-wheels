@@ -24,6 +24,7 @@ function install_run {
     set -ex
     if [ `uname -m` == 'aarch64' ]; then
     #apt-get -y install wget
+    PYTHON_EXE=`which python`
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
     MINICONDA_PATH=/home/travis/miniconda
     chmod +x miniconda.sh && ./miniconda.sh -b -p $MINICONDA_PATH
