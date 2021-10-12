@@ -8,6 +8,7 @@ function pre_build {
     chmod +x miniconda.sh && ./miniconda.sh -b -p $MINICONDA_PATH
     export PATH=$MINICONDA_PATH/bin:$PATH
     conda install -c conda-forge statsmodels
+    fi
 }
 
 function run_tests {
