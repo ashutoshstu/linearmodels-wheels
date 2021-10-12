@@ -15,13 +15,6 @@ function pre_build {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
-    MPLBACKEND="agg" python -c "import linearmodels; linearmodels.test(['-n','auto','--skip-slow','--skip-smoke'])"
-}
-
-function install_run {
-    # Override multibuild test running command, to preinstall packages
-    # that have to be installed before TEST_DEPENDS.
-    set -ex
     if [ "$uname -m" == aarch64 ]; then
     yum -y install wget
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
@@ -30,7 +23,5 @@ function install_run {
     export PATH=$MINICONDA_PATH/bin:$PATH
     conda install -c conda-forge statsmodels
     fi
-
-    # Copypaste from multibuild/common_utils.sh:install_run
-    install_wheel
+    MPLBACKEND="agg" python -c "import linearmodels; linearmodels.test(['-n','auto','--skip-slow','--skip-smoke'])"
 }
