@@ -4,6 +4,7 @@ function pre_build {
     python --version
     if [ "$uname -m" == aarch64 ]; then
     PYTHON_EXE=`which python`
+    PYTHON_EXE --version
     PYTHON_VERSION=$(PYTHON_EXE --version)
     #PYTHON_VERSION=${PYTHON_EXE:14:1}.${PYTHON_EXE:15:1}
     yum -y install wget
@@ -30,6 +31,7 @@ function install_run {
     if [ `uname -m` == 'aarch64' ]; then
     #apt-get -y install wget
     PYTHON_EXE=`which python`
+    PYTHON_EXE --version
     PYTHON_VERSION=$(PYTHON_EXE --version)
     $PYTHON_EXE -m pip install packaging
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
