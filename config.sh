@@ -3,11 +3,15 @@ function pre_build {
     # Runs in the root directory of this repository.
     python --version
     if [ "$uname -m" == aarch64 ]; then
+    PYTHON_EXE=`which python`
+    PYTHON_VERSION=${PYTHON_EXE:14:1}.${PYTHON_EXE:15:1}
     yum -y install wget
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
-    MINICONDA_PATH=/home/travis/miniconda
+    MINICONDA_PATH=/home/miniconda
     chmod +x miniconda.sh && ./miniconda.sh -b -p $MINICONDA_PATH
     export PATH=$MINICONDA_PATH/bin:$PATH
+    conda create -n testenv --yes python=$PYTHON_VERSION pip
+    source activate testenv
     conda install -c conda-forge statsmodels
     fi
 }
@@ -26,10 +30,13 @@ function install_run {
     #apt-get -y install wget
     PYTHON_EXE=`which python`
     $PYTHON_EXE -m pip install packaging
+    PYTHON_VERSION=${PYTHON_EXE:14:1}.${PYTHON_EXE:15:1}
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
-    MINICONDA_PATH=/home/travis/miniconda
+    MINICONDA_PATH=/home/miniconda
     chmod +x miniconda.sh && ./miniconda.sh -b -p $MINICONDA_PATH
     export PATH=$MINICONDA_PATH/bin:$PATH
+    conda create -n testenv --yes python=$PYTHON_VERSION pip
+    source activate testenv
     conda install -c conda-forge statsmodels
     
     # Copypaste from multibuild/common_utils.sh:install_run
