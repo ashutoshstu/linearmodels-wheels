@@ -32,7 +32,7 @@ function install_run {
     #apt-get -y install wget
     PYTHON_EXE=$(python --version)
     #PYTHON_EXE=`which python`
-    PYTHON_EXE --version
+    #PYTHON_EXE --version
     #PYTHON_VERSION=$(PYTHON_EXE --version)
     #$PYTHON_EXE -m pip install packaging
     PYTHON_VERSION=${PYTHON_EXE:7:1}.${PYTHON_EXE:9:1}
