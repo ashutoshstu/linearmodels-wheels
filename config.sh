@@ -30,17 +30,17 @@ function install_run {
     set -ex
     if [ `uname -m` == 'aarch64' ]; then
     #apt-get -y install wget
-    PYTHON_EXE=$(python --version)
+    PYTHON_VERSION=$(python --version)
     #PYTHON_EXE=`which python`
     #PYTHON_EXE --version
     #PYTHON_VERSION=$(PYTHON_EXE --version)
     #$PYTHON_EXE -m pip install packaging
-    PYTHON_VERSION=${PYTHON_EXE:7:1}.${PYTHON_EXE:9:1}
+    PYTHON_EXE=${PYTHON_EXE:7:1}.${PYTHON_EXE:9:1}
     wget -q https://github.com/conda-forge/miniforge/releases/download/4.8.2-1/Miniforge3-4.8.2-1-Linux-aarch64.sh -O miniconda.sh
     MINICONDA_PATH=/home/miniconda
     chmod +x miniconda.sh && ./miniconda.sh -b -p $MINICONDA_PATH
     export PATH=$MINICONDA_PATH/bin:$PATH
-    conda create -n testenv --yes python=$PYTHON_VERSION pip
+    conda create -n testenv --yes python=$PYTHON_EXE pip
     source activate testenv
     conda install -c conda-forge statsmodels
     
